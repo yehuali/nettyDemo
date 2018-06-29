@@ -10,6 +10,31 @@ NIO为网络资源的利用率提供相当多的控制
   既是异步的又是事件驱动 --->任意的顺序响应在任意的时间点产生的事件
   
 Netty的核心组件
+1.Channel:Java NIO的一个基本构造
+   它代表一个到实体的开放连接，如读操作和写操作
+2.回调
+   2.1 一个指向已经被提供给另外一个方法的方法的引用
+   2.2 当一个回调被触发时，相关的事件被一个interface-channelHandler的实现处理
+3.Future
+  3.1 提供另一种在操作完成时通知应用程序的方式（异步操作结果的占位符，提供对其结果的访问）
+  3.2 netty的ChanelFuture，可以注册一个或者多个ChannelFutureListener实例，监听器的回调方法operationComplete（）
+  3.3 每个Netty的出站I/O都将返回一个ChannelFuture
+  
+事件和ChannelHandler
+  1.netty使用不同的事件来通知我们状态的改变或者是操作的状态
+  2.事件是按照它们与入站或出站数据流的相关性进行分类的
+  3.每个事件都可以被分发给ChannelHandler类中的某个用户实现的方法 
+    ---> 事件驱动范式直接转换为应用程序构件块
+    
+Netty通过触发事件将Selector从应用程序中抽象出来，消除手动编写的派发代码
+-->为每个Channel分配一个EventLoop，用以处理所有事件
+1.注册感兴趣的事件
+2.将事件派发给ChanelHandler
+3.安排进一步的动作
+
+EventLoop本身只由一个线程驱动
+   
+  
   
     
    
