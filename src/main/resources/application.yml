@@ -1,0 +1,3 @@
+server:
+    # WebServer bind port
+    port: 9010

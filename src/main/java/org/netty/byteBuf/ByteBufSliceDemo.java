@@ -5,6 +5,7 @@ import io.netty.buffer.Unpooled;
 import org.junit.jupiter.api.Test;
 
 import java.nio.charset.Charset;
+import java.util.concurrent.*;
 
 public class ByteBufSliceDemo {
 
@@ -62,5 +63,17 @@ public class ByteBufSliceDemo {
         assert readIndex ==  buf.readerIndex();
         assert  writerIndex == buf.writerIndex();
 
+    }
+
+    public void testScheduledExecutorService(){
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(10);
+        ScheduledFuture<?> future = executor.schedule(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println("60 seconds later");
+                    }
+                },60,TimeUnit.SECONDS);
+        executor.shutdown();
     }
 }
