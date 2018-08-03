@@ -15,6 +15,7 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 
 import java.net.InetSocketAddress;
+import java.util.Properties;
 import java.util.concurrent.Future;
 
 @Component
@@ -24,17 +25,21 @@ public class ExecutorsServer {
     @Autowired
     FrontendPipeline frontendPipeline;
 
+
+
     @Async("frontendWorkTaskExcutor")
     public Future<Boolean> initProxyServer(){
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup,workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .childHandler(frontendPipeline)
                     .childOption(ChannelOption.AUTO_READ,false);
+
+
+
             ChannelFuture f  = b.bind(8080).sync();
             logger.debug("启动代理服务，端口："+((InetSocketAddress)f.channel().localAddress()).getPort());
             f.channel().closeFuture().sync();
