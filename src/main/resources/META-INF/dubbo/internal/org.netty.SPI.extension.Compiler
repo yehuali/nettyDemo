@@ -1,0 +1,2 @@
+adaptive=org.netty.SPI.extension.AdaptiveCompiler
+javassist=org.netty.SPI.extension.JavassistCompiler

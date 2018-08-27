@@ -1,0 +1,2 @@
+adaptive=org.netty.SPI.extension.AdaptiveExtensionFactory
+spi=org.netty.SPI.extension.SpiExtensionFactory
